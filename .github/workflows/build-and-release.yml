@@ -53,21 +53,3 @@ jobs:
         body: |
           ## Changes
           New build of Windows Forms Application.
-        
-
-    - name: Download Artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: WindowsFormsApp
-        path: release
-
-    - name: Upload Release Asset
-      id: upload_release_asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} # This is the upload URL we got from the create_release step
-        asset_path: ./release/* # This is the path to the artifact
-        asset_name: WindowsFormsApp.zip # This is the name of the artifact
-        asset_content_type: application/zip # This is the content type of the artifact
