@@ -40,20 +40,8 @@ jobs:
         path: release
         compression-level: 9
 
-  create_release:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Download Build Artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: WindowsFormsApp
-        path: ./release
-
-    - name: Create GitHub Release
+    - name: Create Github Draft Release
       id: create_release
-      if: github.ref == 'refs/heads/main'
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -66,12 +54,38 @@ jobs:
           ## Changes
           - New build of Windows Forms Application.
 
-    - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./release
-        asset_name: WindowsFormsApp.zip
-        asset_content_type: application/zip
+#   create_release:
+#     needs: build
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Download Build Artifact
+#       uses: actions/download-artifact@v3
+#       with:
+#         name: WindowsFormsApp
+#         path: ./release
+
+#     - name: Create GitHub Release
+#       id: create_release
+#       if: github.ref == 'refs/heads/main'
+#       uses: actions/create-release@v1
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       with:
+#         tag_name: v${{ github.run_number }}
+#         release_name: Release ${{ github.run_number }}
+#         draft: true
+#         prerelease: false
+#         body: |
+#           ## Changes
+#           - New build of Windows Forms Application.
+
+#     - name: Upload Release Asset
+#       uses: actions/upload-release-asset@v1
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       with:
+#         upload_url: ${{ steps.create_release.outputs.upload_url }}
+#         asset_path: ./release
+#         asset_name: WindowsFormsApp.zip
+#         asset_content_type: application/zip
