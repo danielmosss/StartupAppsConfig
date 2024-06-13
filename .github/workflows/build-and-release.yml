@@ -27,7 +27,7 @@ jobs:
     - name: Archive the build
       run: |
         mkdir -p release
-        cp -R ./bin/Release/net8.0-windows/win-x64/publish/* release/
+        cp -R ./WinFormsApp1/bin/Release/net8.0-windows/win-x64/publish/* release/
       shell: bash
 
     - name: Upload Release Asset
